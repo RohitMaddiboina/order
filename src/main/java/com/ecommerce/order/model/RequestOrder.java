@@ -4,9 +4,13 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class RequestOrder {
 	@NotNull(message="Payment Method Should Not be Null")
 	@NotEmpty(message="Payment Method Should Not be Emply")

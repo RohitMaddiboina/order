@@ -23,9 +23,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@Override
 	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
-		List<String> details = new ArrayList<String>();
+		List<String> details = new ArrayList<>();
 		details.add("Required request body is missing");			
-		return new ResponseEntity<Object>(details,status);
+		return new ResponseEntity<>(details,status);
 	}
 
 	@Override
@@ -34,21 +34,21 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		for(ObjectError error : ex.getBindingResult().getAllErrors()) {
 			details.add(error.getDefaultMessage());
 		}
-		return new ResponseEntity<Object>(details, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(details, HttpStatus.BAD_REQUEST);
 	}
 
 	@Override
 	protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
-		List<String> details = new ArrayList<String>();
+		List<String> details = new ArrayList<>();
 		details.add(ex.getMessage());			
-		return new ResponseEntity<Object>(details,status);
+		return new ResponseEntity<>(details,status);
 	}
 
 
 	@ExceptionHandler(OrderException.class)
 	public ResponseEntity<Object> handleOrderException(OrderException ex){
-		List<String> error=new ArrayList<String>();
+		List<String> error=new ArrayList<>();
 		error.add(ex.getMessage());
 		return new ResponseEntity<>(error,HttpStatus.FORBIDDEN);
 	}

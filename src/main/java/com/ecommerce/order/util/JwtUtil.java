@@ -2,11 +2,8 @@ package com.ecommerce.order.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Function;
 
 import org.springframework.stereotype.Component;
@@ -37,10 +34,6 @@ public class JwtUtil {
         return Jwts.parser().setSigningKey(SECRETKEY).parseClaimsJws(token).getBody();
     }
 
-    private Boolean isTokenExpired(String token) {
-
-        return extractExpiration(token).before(new Date());
-    }
 
 
 

@@ -42,17 +42,13 @@ public class User {
     private String state;
     private int pincode;
     private String landmark;
-    private String security_questions;
-    private String security_answer;
+    @Column(name="secuirty_questions")
+    private String securityQuestions;
+    @Column(name="secuirty_answer")
+    private String securityAnswer;
     private float walletAmount;
     
-    public User(String firstName, String lastName, String email, String gender, Date dob, String password,
-            String phone, String houseNo, String street, String city, String district, String state, int pincode,
-            String landmark, String security_questions, String security_answer) {
-    super();
-}
-    
-	
+   
 	@Getter(value=AccessLevel.NONE)
 	@OneToMany(mappedBy="user")
 	private List<Order> order; 
