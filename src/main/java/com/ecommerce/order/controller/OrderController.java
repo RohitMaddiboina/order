@@ -23,8 +23,9 @@ import com.ecommerce.order.model.RequestOrder;
 import com.ecommerce.order.service.OrderServiceImpl;
 import com.ecommerce.order.util.JwtUtil;
 
-@CrossOrigin(origins ="http://localhost:4200")
+//@CrossOrigin(origins ="http://localhost:4200")
 @RestController
+@CrossOrigin
 @RequestMapping("/orders")
 public class OrderController implements OrderControllerI {
 

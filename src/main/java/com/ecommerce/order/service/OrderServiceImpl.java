@@ -98,8 +98,8 @@ public class OrderServiceImpl implements OrderService {
 			if(userWalletAmount>totalAmt) {
 				return true;
 			}
-			boolean s= userWalletAmount>totalAmt;
-			return s;
+			return  userWalletAmount>totalAmt;
+
 		}
 
 

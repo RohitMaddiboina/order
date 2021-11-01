@@ -1,32 +1,5 @@
-logging:
-  level:
-    com:
-      cognizant: =debug
-    org:
-      hibernate:
-        SQL: trace
-        type:
-          descriptor:
-            sql: trace
-      springframework: info
-  pattern:
-    console: '%d{dd-MM-yy} %d{HH:mm:ss.SSS} %-20.20thread %5p %-25.25logger{25} %25M
-      %4L %m%n'
-server:
-  port: 8084
 spring:
   application:
     name: order-service
-  datasource:
-    driverClassName: com.mysql.cj.jdbc.Driver
-    password: ENC(gL7lEmz69ww3sR3ZX0TOQnRuMei/TTS9UOthyOLj9BC3ziUYn2dhUNuSApi2olQp)
-    url: jdbc:mysql://localhost:3306/fassciodb
-    username: root
-  jackson:
-    serialization:
-      FAIL_ON_EMPTY_BEANS: false
-  jpa:
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    hibernate:
-      ddl-auto: update
-    show-sql: true
+  profiles:
+    active: dev
