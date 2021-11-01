@@ -27,7 +27,7 @@ class OrderApplicationTests {
 	 @Autowired
 	 private MockMvc mock;
 
-	 private static final String token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaWdpcmlzZXR0aWNoYW5kcmlrYTE2QGdtYWlsLmNvbSIsImV4cCI6MTYzNTgzMTM5NCwiaWF0IjoxNjM1NzQ0OTk0fQ.2i9KA9t5COBZVIqGKsaMwCB1pnzHqp-BZLD7gSg5d38";
+	 private static final String token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaWdpcmlzZXR0aWNoYW5kcmlrYTE2QGdtYWlsLmNvbSIsImV4cCI6MTYzNTg0NDc1OSwiaWF0IjoxNjM1NzU4MzU5fQ.aq83RLIX0IZZyvAlosVydr2-BwzoCJJ-sBOIE3r_lsk";
 	 @Test
 	 void placeOrder() throws Exception {
 

@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -20,14 +21,14 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
 public class Order {
 
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	@Setter
+	
 	private String orderId;	
 	private int quantity;
 	private float amount;

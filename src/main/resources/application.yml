@@ -19,7 +19,7 @@ spring:
     name: order-service
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    password: ENC(gL7lEmz69ww3sR3ZX0TOQnRuMei/TTS9UOthyOLj9BC3ziUYn2dhUNuSApi2olQp)
+    password: Mysql123 #ENC(gL7lEmz69ww3sR3ZX0TOQnRuMei/TTS9UOthyOLj9BC3ziUYn2dhUNuSApi2olQp)
     url: jdbc:mysql://localhost:3306/fassciodb
     username: root
   jackson:
