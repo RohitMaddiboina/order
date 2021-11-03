@@ -35,7 +35,17 @@ public class OrderDaoImpl implements OrderDao {
 
 	public List<Order> getOrdersByUserId(int id) {
 		
-		return orderRepo.findByUser_Id(id);
+		return orderRepo.findByUser_IdOrderByOrderIdDesc(id);
+	}
+
+	@Override
+	public Order getOrderByOrderId(String orderId) {
+		return orderRepo.findByOrderId(orderId);
+	}
+
+	@Override
+	public Order updateOrder(Order order) {
+		return orderRepo.save(order);
 	}
 
 }

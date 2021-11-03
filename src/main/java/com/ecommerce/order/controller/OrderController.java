@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +18,8 @@ import com.ecommerce.order.client.UserClient;
 import com.ecommerce.order.model.Cart;
 import com.ecommerce.order.model.Order;
 import com.ecommerce.order.model.RequestOrder;
-import com.ecommerce.order.service.OrderServiceImpl;
+import com.ecommerce.order.model.RequestOrderCancellation;
+import com.ecommerce.order.service.OrderService;
 import com.ecommerce.order.util.JwtUtil;
 
 @CrossOrigin(origins ="http://localhost:4200")
@@ -35,7 +34,7 @@ public class OrderController implements OrderControllerI {
 	@Autowired
 	private JwtUtil jwt;
 	@Autowired
-	private OrderServiceImpl orderService;
+	private OrderService orderService;
 
 	@Override
 	public ResponseEntity<List<Order>> placeOrder(@RequestHeader(TOKEN_STRING) String token,@Valid @RequestBody RequestOrder requestOrder) {
@@ -76,5 +75,14 @@ public class OrderController implements OrderControllerI {
 			}			 
 		}
 		return null;
+	}
+
+	@Override
+	public ResponseEntity<Order> cancelOrder(@RequestHeader(TOKEN_STRING) String token,@RequestBody RequestOrderCancellation cancelOrder) {
+		String email=extractEmail(token);
+		if(email!=null) {
+			return new ResponseEntity<Order>(orderService.cancelOrder(cancelOrder,token),HttpStatus.ACCEPTED);			
+		}
+		return  new ResponseEntity<>(HttpStatus.FORBIDDEN);
 	}
 }

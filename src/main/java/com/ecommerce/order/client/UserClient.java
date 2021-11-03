@@ -1,6 +1,7 @@
 package com.ecommerce.order.client;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 
+import com.ecommerce.order.model.Cart;
 import com.ecommerce.order.model.User;
 
 @FeignClient(name = "UserClient",url = "http://localhost:8080/fasscio")
@@ -26,5 +28,8 @@ public interface UserClient {
 
 	@PutMapping("/debit/{amount}")
 	public ResponseEntity<Object> debitFromUserWallet(@RequestHeader(TOKEN_STRING) String token,@PathVariable("amount") float amount);
+
+	@PutMapping("/cedit/{amount}")
+	public ResponseEntity<User> addAmountToUserWallet(@RequestHeader(TOKEN_STRING) String token,@PathVariable float amount);
 
 }

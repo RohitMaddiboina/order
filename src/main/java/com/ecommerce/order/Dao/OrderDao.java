@@ -12,4 +12,8 @@ public interface OrderDao {
 			String deliveryStatus, boolean orderCancellationStatus, String orderCancellationReason, Date orderCancellationDate, boolean refundStatus, Date refundDate, User user,
 			Item item) ;
 	List<Order> getOrdersByUserId(int id) ;
+	
+	Order getOrderByOrderId(String orderId);
+	
+	Order updateOrder(Order order);
 }
