@@ -8,10 +8,7 @@ import lombok.Data;
 
 @Data
 public class RequestOrder {
-	@NotNull(message="Payment Method Should Not be Null")
-	@NotEmpty(message="Payment Method Should Not be Emply")
-	@NotBlank(message="Payment Method Should Not be Blank")
-	private String paymentMethod;
+	private PaymentMethod paymentMethod;
 	@NotNull(message="Delivery Address Method Should Not be Null")
 	@NotEmpty(message="Delivery Address Method Should Not be Emply")
 	@NotBlank(message="Delivery Address Method Should Not be Blank")

@@ -14,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.ecommerce.order.model.PaymentMethod;
 import com.ecommerce.order.model.RequestOrder;
 
 
@@ -34,7 +35,7 @@ class OrderApplicationTests {
 	 RequestOrder requestOrder=new RequestOrder();
 	 
 	 
-	 	requestOrder.setPaymentMethod("WALLET");
+	 	requestOrder.setPaymentMethod(PaymentMethod.WALLET);
 	 	requestOrder.setDeliveryAddress("Guntur Narasaraopeta");
 	 
 	 ObjectMapper mapper = new ObjectMapper();
@@ -65,7 +66,7 @@ class OrderApplicationTests {
 	 
 	// requestOrder.set
 	 
-	 requestOrder.setPaymentMethod("WALLET");
+	 requestOrder.setPaymentMethod(PaymentMethod.WALLET);
 	 requestOrder.setDeliveryAddress("Guntur Narasaraopeta");
 	 ObjectMapper mapper = new ObjectMapper();
 	 String jsonData = mapper.writeValueAsString(requestOrder);
@@ -84,7 +85,7 @@ class OrderApplicationTests {
 
 
 	  RequestOrder requestOrder1=new RequestOrder();
-	 requestOrder1.setPaymentMethod("");
+//	 requestOrder1.setPaymentMethod("");
 	 requestOrder1.setDeliveryAddress("");
 	 ObjectMapper mapper1 = new ObjectMapper();
 	 String jsonData1= mapper1.writeValueAsString(requestOrder1);

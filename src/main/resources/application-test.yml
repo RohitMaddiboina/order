@@ -16,7 +16,7 @@ server:
   port: 8084
 spring:
   application:
-    name: order-service
+      name: order-service
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     password: ENC(gL7lEmz69ww3sR3ZX0TOQnRuMei/TTS9UOthyOLj9BC3ziUYn2dhUNuSApi2olQp)

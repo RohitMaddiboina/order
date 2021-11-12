@@ -17,6 +17,6 @@ public interface OrderRepo extends JpaRepository<Order, Integer>{
 
 	Order findByOrderId(String orderId);
 
-	List<Order> findByUser_IdOrderByOrderIdDesc(int id);
+	List<Order> findByUser_IdOrderByIdDesc(int id);
 
 }

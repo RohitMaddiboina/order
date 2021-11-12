@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import com.ecommerce.order.model.Cart;
 import com.ecommerce.order.model.User;
 
-@FeignClient(name = "UserClient",url = "http://localhost:8080/fasscio")
+@FeignClient(name = "user-service",url = "http://localhost:8080/fasscio")
 public interface UserClient {
 
 	public static final String   TOKEN_STRING  = "Authorization";
