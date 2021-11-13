@@ -6,7 +6,6 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
 #    password:
-#    password: Saleem@27
     password: ENC(dmIRdpSRscZCQvOiTTNN49UR3SWKSgjaOMfwyY02k81+RK1C3EQmQ3FR4Gc65EvQ)
   jpa:
     hibernate:

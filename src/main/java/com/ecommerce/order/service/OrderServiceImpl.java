@@ -2,6 +2,7 @@ package com.ecommerce.order.service;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,12 +29,15 @@ import com.ecommerce.order.model.RequestOrderCancellation;
 import com.ecommerce.order.model.TransactionType;
 import com.ecommerce.order.model.Transactions;
 import com.ecommerce.order.model.User;
+import com.ecommerce.order.pdf.HeaderFooterPageEvent;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -209,24 +213,31 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Override
 	public void createPdf(String orderId) throws FileNotFoundException, DocumentException {
-		Document document = new Document();
-		PdfWriter.getInstance(document, new FileOutputStream("invoice_"+orderId+".pdf"));
-		document.open();
-		Font font = FontFactory.getFont(FontFactory.COURIER,8, BaseColor.BLACK);
+		 Document document = new Document(PageSize.A4, 36, 36, 90, 36);
+		PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("invoice_"+orderId+".pdf"));
+		
+		HeaderFooterPageEvent headerFooterPageEvent = new HeaderFooterPageEvent();
+		writer.setPageEvent(headerFooterPageEvent);
+//		Font font = FontFactory.getFont(FontFactory.COURIER,20, BaseColor.BLACK);
 		
 		Order order = orderDao.getOrderByOrderId(orderId);
-		PdfPTable table = new PdfPTable(4);
+		
+		PdfPTable table = new PdfPTable(5);
 		addTableHeader(table);
 		addRows(table,order);
+		document.open();
+		document.add(new Paragraph("Your Order Invoice"));
+		document.add(new Paragraph("\n"));
 		document.add(table);
 		document.close();
 		
 	}
 	
 	private void addTableHeader(PdfPTable table) {
-	    Stream.of("OrderID", "OrderedItem", "Price","Ordered Date")
+	    Stream.of("OrderID", "OrderedItem", "Price","Payment Method","Ordered Date")
 	      .forEach(columnTitle -> {
 	        PdfPCell header = new PdfPCell();
+	       
 	        header.setBackgroundColor(BaseColor.LIGHT_GRAY);
 	        header.setBorderWidth(1);
 	        header.setPhrase(new Phrase(columnTitle));
@@ -237,6 +248,7 @@ public class OrderServiceImpl implements OrderService {
 	    table.addCell(order.getOrderId());
 	    table.addCell(order.getItem().getItemName());
 	    table.addCell(order.getAmount()+"");
-	    table.addCell(order.getOrderedDate().toString());
+	    table.addCell(order.getPaymentMethod()+"");
+	    table.addCell(DateFormat.getInstance().format(order.getOrderedDate()));
 	}
 }
