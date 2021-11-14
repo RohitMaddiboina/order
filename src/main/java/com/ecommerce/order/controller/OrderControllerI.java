@@ -3,14 +3,18 @@ package com.ecommerce.order.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ecommerce.order.model.Order;
 import com.ecommerce.order.model.RequestOrder;
 import com.ecommerce.order.model.RequestOrderCancellation;
+import com.ecommerce.order.model.Transactions;
 
+@RequestMapping("/orders")
 public interface OrderControllerI {
 
 	String TOKEN_STRING = "Authorization";
@@ -30,5 +34,8 @@ public interface OrderControllerI {
 	//This method will fetch mailid of user according to token placed
 	@PutMapping("/")
 	ResponseEntity<Order> cancelOrder(String token,RequestOrderCancellation cancelOrder);
+	
+	@GetMapping("/transactions")
+	ResponseEntity<List<Transactions>> getUserTransactions(String token);
 
 }

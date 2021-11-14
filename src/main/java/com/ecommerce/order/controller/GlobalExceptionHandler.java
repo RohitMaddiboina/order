@@ -50,7 +50,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<Object> handleOrderException(OrderException ex){
 		List<String> error=new ArrayList<String>();
 		error.add(ex.getMessage());
-		return new ResponseEntity<>(error,HttpStatus.FORBIDDEN);
+		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
 	}
 
 }

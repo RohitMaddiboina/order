@@ -16,14 +16,17 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+
 public class Cart {
 
 	@Id
 	private long cartId;
+	
 	@ManyToOne
 	private User user;
+	
 	@ManyToOne
 	private Item item;
+	
 	private int quantity;
 }

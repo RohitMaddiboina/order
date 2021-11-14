@@ -7,10 +7,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.order.client.CartClient;
@@ -19,12 +17,14 @@ import com.ecommerce.order.model.Cart;
 import com.ecommerce.order.model.Order;
 import com.ecommerce.order.model.RequestOrder;
 import com.ecommerce.order.model.RequestOrderCancellation;
+import com.ecommerce.order.model.Transactions;
 import com.ecommerce.order.service.OrderService;
 import com.ecommerce.order.util.JwtUtil;
 
-@CrossOrigin(origins ="http://localhost:4200")
+import springfox.documentation.annotations.ApiIgnore;
+
+
 @RestController
-@RequestMapping("/orders")
 public class OrderController implements OrderControllerI {
 
 	@Autowired
@@ -37,30 +37,35 @@ public class OrderController implements OrderControllerI {
 	private OrderService orderService;
 
 	@Override
-	public ResponseEntity<List<Order>> placeOrder(@RequestHeader(TOKEN_STRING) String token,@Valid @RequestBody RequestOrder requestOrder) {
+	public ResponseEntity<List<Order>> placeOrder( @ApiIgnore @RequestHeader(TOKEN_STRING) String token,
+													@Valid @RequestBody RequestOrder requestOrder  )
+	{
 		String email=extractEmail(token);
-		if(email!=null) {
+		
+		if(email!=null) 
+		{
 			List<Cart> cart= cartClient.getCartByEmail(token).getBody();
 
 
-			return new ResponseEntity<List<Order>>(orderService.placeOrder(cart,requestOrder,userClient.getUserWalletAmount(token).getBody(),token),HttpStatus.ACCEPTED);
+			return new ResponseEntity<>(orderService.placeOrder(
+							cart,requestOrder,userClient.getUserWalletAmount(token).getBody(),token), HttpStatus.ACCEPTED);
 		}
 		return  new ResponseEntity<>(HttpStatus.FORBIDDEN);
 	}
 	
 	@Override
-	public ResponseEntity<List<Order>> getOrdersByUser(@RequestHeader(TOKEN_STRING) String token){
+	public ResponseEntity<List<Order>> getOrdersByUser( @ApiIgnore @RequestHeader(TOKEN_STRING) String token){
 		String email=extractEmail(token);
 		if(email!=null) {
 			
 
-			return new ResponseEntity<List<Order>>(orderService.getOrdersByUser(email,token),HttpStatus.ACCEPTED);
+			return new ResponseEntity<>(orderService.getOrdersByUser(email,token),HttpStatus.ACCEPTED);
 		}
 		return  new ResponseEntity<>(HttpStatus.FORBIDDEN);
 	}
 
 	@Override
-	public ResponseEntity<Object> checkWalletAmountBeforePlaceOrder(@RequestHeader(TOKEN_STRING) String token){
+	public ResponseEntity<Object> checkWalletAmountBeforePlaceOrder(@ApiIgnore @RequestHeader(TOKEN_STRING) String token){
 		String email=extractEmail(token);
 		if(email!=null) {
 			return new ResponseEntity<>(orderService.checkWalletAmountBeforePlaceOrder(cartClient.getCartByEmail(token).getBody(),userClient.getUserWalletAmount(token).getBody()),HttpStatus.ACCEPTED);
@@ -78,11 +83,22 @@ public class OrderController implements OrderControllerI {
 	}
 
 	@Override
-	public ResponseEntity<Order> cancelOrder(@RequestHeader(TOKEN_STRING) String token,@RequestBody RequestOrderCancellation cancelOrder) {
+	public ResponseEntity<Order> cancelOrder
+	(@ApiIgnore @RequestHeader(TOKEN_STRING) String token,@RequestBody RequestOrderCancellation cancelOrder) 
+	{
+		
 		String email=extractEmail(token);
 		if(email!=null) {
-			return new ResponseEntity<Order>(orderService.cancelOrder(cancelOrder,token),HttpStatus.ACCEPTED);			
+			return new ResponseEntity<>(orderService.cancelOrder(cancelOrder,token),HttpStatus.ACCEPTED);			
 		}
 		return  new ResponseEntity<>(HttpStatus.FORBIDDEN);
+	}
+
+	@Override
+	public ResponseEntity<List<Transactions>> getUserTransactions( @ApiIgnore @RequestHeader(TOKEN_STRING) String token) {String email=extractEmail(token);
+	if(email!=null) {
+		return new ResponseEntity<>(orderService.getUserTransactions(token),HttpStatus.ACCEPTED);			
+	}
+	return  new ResponseEntity<>(HttpStatus.FORBIDDEN);
 	}
 }

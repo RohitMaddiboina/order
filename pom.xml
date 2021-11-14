@@ -19,6 +19,8 @@
 		<spring-cloud.version>2020.0.4</spring-cloud.version>
 	</properties>
 	<dependencies>
+
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jdbc</artifactId>
@@ -83,12 +85,25 @@
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-boot-starter -->
 		<dependency>
-		<groupId>io.springfox</groupId>
-		<artifactId>springfox-boot-starter</artifactId>
-		<version>3.0.0</version>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>3.0.0</version>
 		</dependency>
-	</dependencies>
 
+		
+
+	</dependencies>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<build>
 		<plugins>
 			<plugin>
