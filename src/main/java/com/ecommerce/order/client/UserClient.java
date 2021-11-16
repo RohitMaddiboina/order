@@ -30,6 +30,6 @@ public interface UserClient {
 	public ResponseEntity<Object> debitFromUserWallet(@RequestHeader(TOKEN_STRING) String token,@PathVariable("amount") float amount);
 
 	@PutMapping("/cedit/{amount}")
-	public ResponseEntity<User> addAmountToUserWallet(@RequestHeader(TOKEN_STRING) String token,@PathVariable float amount);
+	public ResponseEntity<User> addAmountToUserWallet(@RequestHeader(TOKEN_STRING) String token,@PathVariable("amount") float amount);
 
 }

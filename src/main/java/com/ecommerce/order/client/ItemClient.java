@@ -14,9 +14,9 @@ public interface ItemClient {
 	Item getItem(@PathVariable("itemId") int itemId);
 	
 	@PutMapping("/addQuantity/{itemId}/{quantity}")
-	Item addQuantityToItems(@PathVariable int itemId,@PathVariable  int quantity);
+	Item addQuantityToItems(@PathVariable("itemId") int itemId,@PathVariable("quantity")  int quantity);
 	
 	@PutMapping("/removeQuantity/{itemId}/{quantity}")
-	Item removeQuantityFromItem(@PathVariable int itemId,@PathVariable  int quantity);
+	Item removeQuantityFromItem(@PathVariable("itemId") int itemId,@PathVariable("quantity")  int quantity);
 
 }

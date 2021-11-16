@@ -175,7 +175,6 @@ public class OrderServiceImpl implements OrderService {
 		order.setQuantity(order.getQuantity() - cancelOrder.getQuantity());
 		order.setCancallationQuatity(order.getCancallationQuatity() + cancelOrder.getQuantity());
 		order.setOrderCancellationStatus(true);
-		order.setDeliveryStatus("Cancelled");
 		if (order.isPaymentStatus()) {
 			addAmountToUserWallet(token, order.getAmount());
 			orderDao.addTransaction(

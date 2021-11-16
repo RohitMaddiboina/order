@@ -21,7 +21,6 @@ import com.ecommerce.order.model.Transactions;
 import com.itextpdf.text.DocumentException;
 
 @RequestMapping("/orders")
-@CrossOrigin
 public interface OrderControllerI {
 
 	String TOKEN_STRING = "Authorization";
