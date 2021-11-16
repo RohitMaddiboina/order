@@ -32,6 +32,8 @@ import com.ecommerce.order.util.JwtUtil;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
+import springfox.documentation.annotations.ApiIgnore;
+
 @RestController
 public class OrderController implements OrderControllerI {
 
@@ -45,7 +47,7 @@ public class OrderController implements OrderControllerI {
 	private OrderService orderService;
 
 	@Override
-	public ResponseEntity<List<Order>> placeOrder(@RequestHeader(TOKEN_STRING) String token,
+	public ResponseEntity<List<Order>> placeOrder(@ApiIgnore @RequestHeader(TOKEN_STRING) String token,
 			@Valid @RequestBody RequestOrder requestOrder) {
 		String email = extractEmail(token);
 		if (email != null) {
@@ -59,7 +61,7 @@ public class OrderController implements OrderControllerI {
 	}
 
 	@Override
-	public ResponseEntity<List<Order>> getOrdersByUser(@RequestHeader(TOKEN_STRING) String token) {
+	public ResponseEntity<List<Order>> getOrdersByUser(@ApiIgnore @RequestHeader(TOKEN_STRING) String token) {
 		String email = extractEmail(token);
 		if (email != null) {
 
@@ -69,7 +71,7 @@ public class OrderController implements OrderControllerI {
 	}
 
 	@Override
-	public ResponseEntity<Object> checkWalletAmountBeforePlaceOrder(@RequestHeader(TOKEN_STRING) String token) {
+	public ResponseEntity<Object> checkWalletAmountBeforePlaceOrder(@ApiIgnore @RequestHeader(TOKEN_STRING) String token) {
 		String email = extractEmail(token);
 		if (email != null) {
 			return new ResponseEntity<>(
@@ -90,7 +92,7 @@ public class OrderController implements OrderControllerI {
 	}
 
 	@Override
-	public ResponseEntity<Order> cancelOrder(@RequestHeader(TOKEN_STRING) String token,
+	public ResponseEntity<Order> cancelOrder(@ApiIgnore @RequestHeader(TOKEN_STRING) String token,
 			@RequestBody RequestOrderCancellation cancelOrder) {
 		String email = extractEmail(token);
 		if (email != null) {
@@ -100,7 +102,7 @@ public class OrderController implements OrderControllerI {
 	}
 
 	@Override
-	public ResponseEntity<List<Transactions>> getUserTransactions(@RequestHeader(TOKEN_STRING) String token) {
+	public ResponseEntity<List<Transactions>> getUserTransactions(@ApiIgnore @RequestHeader(TOKEN_STRING) String token) {
 		String email = extractEmail(token);
 		if (email != null) {
 			return new ResponseEntity<>(orderService.getUserTransactions(token), HttpStatus.ACCEPTED);
@@ -109,7 +111,7 @@ public class OrderController implements OrderControllerI {
 	}
 
 	@Override
-	public ResponseEntity<Void> createPdf(@RequestHeader(TOKEN_STRING) String token,@PathVariable("orderId") String orderId)
+	public ResponseEntity<Void> createPdf(@ApiIgnore @RequestHeader(TOKEN_STRING) String token,@PathVariable("orderId") String orderId)
 			throws DocumentException, IOException {
 		
 		orderService.createPdf(orderId);
