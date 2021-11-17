@@ -26,15 +26,16 @@ import lombok.ToString;
 @Table(name="orders")
 @Entity
 @NoArgsConstructor
-@Data
-@ToString
+@Getter
+@Setter
+
 public class Order {
 
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	@Setter
+
 	private String orderId;	
 	private int quantity;
 	private float amount;

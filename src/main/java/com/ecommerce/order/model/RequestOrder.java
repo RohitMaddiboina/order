@@ -4,9 +4,14 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import lombok.Data;
 
-@Data
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class RequestOrder {
 	private PaymentMethod paymentMethod;
 	@NotNull(message="Delivery Address Method Should Not be Null")
