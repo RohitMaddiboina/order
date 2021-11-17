@@ -2,6 +2,7 @@ package com.ecommerce.order.model;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,13 +13,14 @@ import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Table(name="Item")
+@Table(name = "Item")
 @Getter
 @Entity
 @NoArgsConstructor
 public class Item {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int itemId;
@@ -35,6 +37,9 @@ public class Item {
 	private String itemImage;
 
 	@Getter(value = AccessLevel.NONE)
-	@OneToMany(mappedBy="item")
+	@OneToMany(mappedBy = "item")
 	private List<Order> order;
+	@Column(length = 16777215, columnDefinition = "LONGBLOB")
+	private byte[] primaryImage;
+
 }

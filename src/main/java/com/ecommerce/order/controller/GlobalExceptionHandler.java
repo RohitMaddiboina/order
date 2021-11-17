@@ -3,6 +3,7 @@ package com.ecommerce.order.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,12 @@ import com.ecommerce.exception.OrderException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+	private final String s;
 
+	public GlobalExceptionHandler(@Value("${orderException.exceptionValue}")String s) {
+	        super();
+	        this.s = s;
+	    }
 	@Override
 	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {

@@ -13,3 +13,11 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+orderException:
+  exceptionItem: Item Out Of Stock
+  exceptionBalance: Insufficient Balance
+  exceptionUser: Error While Fetching The User Orders
+  exceptionOrder: Order Not Found
+  exceptionInactive: Order Is Inactive
+  exceptionFetching: Error While Fetching User Transaction
+  exceptionValue: Required request body is missing

@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -74,11 +75,34 @@ public class OrderServiceImpl implements OrderService {
 	// This method will take cart details added by user and take it as
 	// parameter,wallet balance,token
 	// and return the list of orders placed by user
+	
+	private final String item;
+	private final String balance;
+	private final String userEx;
+	private final String orderEx;
+	private final String inactive;
+	private final String fetchEx;
+
+	public OrderServiceImpl(@Value("${orderException.exceptionItem}") String item,
+	@Value("${orderException.exceptionBalance}") String balance,
+	@Value("${orderException.exceptionUser}") String userEx,
+	@Value("${orderException.exceptionOrder}") String orderEx,
+	@Value("${orderException.exceptionInactive}") String inactive,
+	@Value("${orderException.exceptionFetching}") String fetchEx)
+	{
+	super();
+	this.item = item;
+	this.balance=balance;
+	this.userEx=userEx;
+	this.orderEx=orderEx;
+	this.inactive=inactive;
+	this.fetchEx=fetchEx;
+	}
 	public List<Order> placeOrder(List<Cart> cart, RequestOrder requestOrder, Float userWalletAmount, String token) {
 		cart.forEach(d -> {
 			Item i = itemClient.getItem(d.getItem().getItemId());
 			if (i.getQuanitity() < d.getQuantity()) {
-				throw new OrderException(i.getItemName() + " Item Out Of Stock");
+				throw new OrderException(i.getItemName() + item);
 			}
 		});
 
@@ -91,7 +115,7 @@ public class OrderServiceImpl implements OrderService {
 		if (!checkWalletAmountBeforePlaceOrder(cart, userWalletAmount)
 				&& requestOrder.getPaymentMethod().equals(PaymentMethod.WALLET)) { // checking whether the wallet amount
 																					// is available for the total price
-			throw new OrderException("Insufficient Balance");
+			throw new OrderException(balance);
 		}
 
 		// if wallet balance is ok ,it will place the orders one by one upto cart empty
@@ -158,17 +182,17 @@ public class OrderServiceImpl implements OrderService {
 		if (user != null) {
 			return orderDao.getOrdersByUserId(user.getId());
 		}
-		throw new OrderException("Error While Fetching The User Orders");
+		throw new OrderException(userEx);
 	}
 
 	@Override
 	public Order cancelOrder(RequestOrderCancellation cancelOrder, String token) {
 		Order order = orderDao.getOrderByOrderId(cancelOrder.getOrderId());
 		if (order == null) {
-			throw new OrderException("Order Not Found");
+			throw new OrderException(orderEx);
 		}
 		if (order.getQuantity() == 0) {
-			throw new OrderException("Order Is Inactive");
+			throw new OrderException(inactive);
 		}
 		order.setOrderCancellationDate(new Date());
 		order.setOrderCancellationReason(cancelOrder.getReason());
@@ -208,7 +232,7 @@ public class OrderServiceImpl implements OrderService {
 		if (user != null) {
 			return orderDao.getTransactionsByUser(user.getId());
 		}
-		throw new OrderException("Error While Fetching User Transaction");
+		throw new OrderException(fetchEx);
 	}
 	
 	@Override
